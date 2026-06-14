@@ -5,9 +5,9 @@
                 <div class="space-y-5">
                     <div class="rounded-lg bg-base-200 p-5">
                         <div class="flex flex-wrap items-center gap-3">
-                            <span class="badge badge-primary">Laravel {{ Illuminate\Foundation\Application::VERSION }}</span>
-                            <span class="badge badge-secondary">Tailwind CSS 4</span>
-                            <span class="badge badge-accent">DaisyUI</span>
+                            <x-ui.badge variant="primary">Laravel {{ Illuminate\Foundation\Application::VERSION }}</x-ui.badge>
+                            <x-ui.badge variant="secondary">Tailwind CSS 4</x-ui.badge>
+                            <x-ui.badge variant="accent">DaisyUI</x-ui.badge>
                         </div>
 
                         <h1 class="mt-5 max-w-2xl text-3xl font-bold leading-tight sm:text-4xl">
@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="grid gap-3 sm:grid-cols-3">
-                        <x-ui.stat label="Blade components" value="4" tone="primary" />
+                        <x-ui.stat label="Blade components" value="5" tone="primary" />
                         <x-ui.stat label="Enabled themes" value="{{ count(config('starter.themes')) }}" tone="secondary" />
                         <x-ui.stat label="Starter mode" value="Repo" tone="accent" />
                     </div>

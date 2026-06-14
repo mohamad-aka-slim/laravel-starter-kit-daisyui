@@ -44,3 +44,15 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+@layer components {
+    .card.image-full > figure,
+    .card.image-full > figure > img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .card.image-full > figure > img {
+        object-fit: cover;
+    }
+}

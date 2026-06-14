@@ -1,58 +1,70 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# laravel-starter-kit-daisyui
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Blade-first Laravel starter for building application interfaces with Tailwind CSS 4 and DaisyUI.
 
-## About Laravel
+This repository is intentionally a starter first. Once the component names, config shape, and theme behavior prove useful, the next step is a Composer package. An installer command should come later, after the defaults are stable enough to automate.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Stack
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Laravel application scaffold
+- Blade-first UI components
+- Tailwind CSS 4 CSS entry
+- DaisyUI plugin configured in `resources/css/app.css`
+- DaisyUI theme switching through `data-theme` and `theme-controller`
+- Local theme persistence through `localStorage`
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Starter Structure
 
-## Learning Laravel
+- `config/starter.php` contains the starter name, default theme, and enabled DaisyUI theme list.
+- `resources/views/components/layouts/app.blade.php` provides the base app shell.
+- `resources/views/components/ui/theme-controller.blade.php` renders the DaisyUI theme controller.
+- `resources/views/components/ui/panel.blade.php` and `resources/views/components/ui/stat.blade.php` are small starter components used by the welcome screen.
+- `resources/js/app.js` applies, persists, and syncs the selected theme.
+- `resources/css/app.css` imports Tailwind CSS 4 and registers DaisyUI with the known theme list.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Development
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Install dependencies:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+composer install
+npm install
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Run the app:
 
-## Contributing
+```bash
+composer run dev
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Build frontend assets:
 
-## Code of Conduct
+```bash
+npm run build
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Run tests:
 
-## Security Vulnerabilities
+```bash
+php artisan test
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Theme Configuration
 
-## License
+The starter defaults to the `light` DaisyUI theme and enables the standard DaisyUI theme set from `config/starter.php`.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+You can override the default theme with:
+
+```env
+STARTER_DEFAULT_THEME=dark
+```
+
+The selected browser theme is stored under `starter-theme` in `localStorage`. User profile persistence can be added later without changing the component API.
+
+## Roadmap
+
+1. Stabilize the starter repository through real app screens and component usage.
+2. Extract the reusable structure into a Composer package once naming and config settle.
+3. Add an optional installer command after the choices are stable.
+
+Optional adapters for Livewire or Inertia can be added after the Blade-first layer is useful on its own.

@@ -1,65 +1,50 @@
-<x-layouts.app title="Alerts Playground">
-    <section class="mx-auto w-full max-w-7xl space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <x-ui.panel title="Alert" description="Blade API backed by DaisyUI alert classes.">
-            <div class="space-y-6">
-                <div>
-                    <h2 class="mb-3 text-sm font-semibold">Variants</h2>
-                    <div class="flex flex-wrap gap-2">
-                        <x-ui.alert>Default</x-ui.alert>
-                        <x-ui.alert variant="info">Info</x-ui.alert>
-                        <x-ui.alert variant="success">Success</x-ui.alert>
-                        <x-ui.alert variant="warning">Warning</x-ui.alert>
-                        <x-ui.alert variant="error">Error</x-ui.alert>
-                    </div>
-                </div>
+<x-layouts.app title="Alert Playground">
+    <section class="mx-auto w-full max-w-7xl space-y-8 px-4 py-6 sm:px-6 lg:px-8">
+        <x-playground.header
+            title="Alert Playground"
+            name="x-ui.alert"
+            description="Alerts communicate important feedback such as success, warning, info, or error states. This wrapper maps Blade props to DaisyUI alert classes."
+            docs="https://daisyui.com/components/alert/"
+        />
 
-                <div>
-                    <h2 class="mb-3 text-sm font-semibold">Styles</h2>
-                    <div class="flex flex-wrap gap-2">
-                        <x-ui.alert variant="primary" outline>Outline</x-ui.alert>
-                        <x-ui.alert variant="secondary" soft>Soft</x-ui.alert>
-                        <x-ui.alert variant="accent" dash>Dash</x-ui.alert>
-                        <x-ui.alert ghost>Ghost</x-ui.alert>
+        <x-ui.panel title="Examples" description="Alerts can be colored, styled, stacked, or rendered without the default icon.">
+            <div class="space-y-8">
+                <x-playground.section title="Colors">
+                    <div class="grid gap-3">
+                        <x-ui.alert>Default alert</x-ui.alert>
+                        <x-ui.alert variant="info">Info alert</x-ui.alert>
+                        <x-ui.alert variant="success">Success alert</x-ui.alert>
+                        <x-ui.alert variant="warning">Warning alert</x-ui.alert>
+                        <x-ui.alert variant="error">Error alert</x-ui.alert>
                     </div>
-                </div>
+                </x-playground.section>
 
-                <div>
-                    <h2 class="mb-3 text-sm font-semibold">Layout</h2>
-                    <div class="flex flex-wrap gap-2">
-                        <x-ui.alert vertical>Vertical Alert</x-ui.alert>
-                        <x-ui.alert horizontal>Horizontal Alert</x-ui.alert>
+                <x-playground.section title="Styles and Layout">
+                    <div class="grid gap-3 md:grid-cols-2">
+                        <x-ui.alert variant="info" outline>Outline alert</x-ui.alert>
+                        <x-ui.alert variant="success" soft>Soft alert</x-ui.alert>
+                        <x-ui.alert variant="warning" dash>Dash alert</x-ui.alert>
+                        <x-ui.alert variant="error" :icon="false">Alert without icon</x-ui.alert>
+                        <x-ui.alert vertical>Vertical alert layout</x-ui.alert>
+                        <x-ui.alert horizontal>Horizontal alert layout</x-ui.alert>
                     </div>
-                </div>
+                </x-playground.section>
 
-                <div>
-                    <h2 class="mb-3 text-sm font-semibold">Icon</h2>
-                    <div class="flex flex-wrap gap-2">
-                        <x-ui.alert variant="success" icon>With Icon</x-ui.alert>
-                        <x-ui.alert variant="error" icon>With Icon</x-ui.alert>
-                    </div>
-                </div>
+                <x-playground.section title="Props">
+                    <x-playground.props :items="[
+                        ['name' => 'variant', 'values' => 'default, info, success, warning, error', 'description' => 'Maps to DaisyUI alert color classes.'],
+                        ['name' => 'outline, soft, dash', 'values' => 'boolean', 'description' => 'Applies visual style modifiers.'],
+                        ['name' => 'vertical, horizontal', 'values' => 'boolean', 'description' => 'Controls alert layout direction.'],
+                        ['name' => 'icon', 'values' => 'boolean', 'description' => 'Toggles the default informational icon.'],
+                    ]" />
+                </x-playground.section>
 
-                <div>
-                    <h2 class="mb-3 text-sm font-semibold">Inline Text</h2>
-                    <div class="space-y-2">
-                        <p class="text-sm">This is a paragraph with <x-ui.alert variant="success" size="sm" soft>inline
-                                alert</x-ui.alert> in the text.</p>
-                        <p class="text-sm">Another example with <x-ui.alert variant="warning" size="xs"
-                                outline>warning</x-ui.alert> message.</p>
-                    </div>
-                </div>
-
-                <div>
-                    <h2 class="mb-3 text-sm font-semibold">Blade Usage</h2>
-                    <div class="mockup-code text-sm">
-                        <pre
-                            data-prefix="1"><code><x-ui.alert variant="success">Success message</x-ui.alert></code></pre>
-                        <pre
-                            data-prefix="2"><code><x-ui.alert variant="warning" outline size="sm">Warning</x-ui.alert></code></pre>
-                        <pre
-                            data-prefix="3"><code><x-ui.alert variant="error" icon>Error with icon</x-ui.alert></code></pre>
-                    </div>
-                </div>
+                <x-playground.section title="Blade Usage">
+                    <x-playground.code>
+                        <pre data-prefix="1"><code>&lt;x-ui.alert variant=&quot;success&quot;&gt;Saved successfully&lt;/x-ui.alert&gt;</code></pre>
+                        <pre data-prefix="2"><code>&lt;x-ui.alert variant=&quot;warning&quot; outline&gt;Check your input&lt;/x-ui.alert&gt;</code></pre>
+                    </x-playground.code>
+                </x-playground.section>
             </div>
         </x-ui.panel>
     </section>

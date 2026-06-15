@@ -1,4 +1,5 @@
 @props([
+    'as' => 'input',
     'type' => 'text',
     'placeholder' => '',
     'value' => null,
@@ -6,7 +7,6 @@
     'id' => null,
     'variant' => 'default',
     'size' => null,
-    'bordered' => true,
     'ghost' => false,
     'required' => false,
     'disabled' => false,
@@ -42,26 +42,31 @@
 
     $classes = collect([
         'input',
-        $bordered ? 'input-bordered' : null,
         $variants[$variant] ?? $variants['default'],
         $sizes[$size] ?? null,
         $ghost ? 'input-ghost' : null,
     ])->filter()->implode(' ');
 @endphp
 
-<input
-    type="{{ $type }}"
-    @if ($name) name="{{ $name }}" @endif
-    @if ($id) id="{{ $id }}" @endif
-    @if ($placeholder) placeholder="{{ $placeholder }}" @endif
-    @if (! is_null($value)) value="{{ $value }}" @endif
-    @if (! is_null($min)) min="{{ $min }}" @endif
-    @if (! is_null($max)) max="{{ $max }}" @endif
-    @if (! is_null($step)) step="{{ $step }}" @endif
-    @if (! is_null($minlength)) minlength="{{ $minlength }}" @endif
-    @if (! is_null($maxlength)) maxlength="{{ $maxlength }}" @endif
-    @required($required)
-    @disabled($disabled)
-    @readonly($readonly)
-    {{ $attributes->class($classes) }}
->
+@if ($as === 'input')
+    <input
+        type="{{ $type }}"
+        @if ($name) name="{{ $name }}" @endif
+        @if ($id) id="{{ $id }}" @endif
+        @if ($placeholder) placeholder="{{ $placeholder }}" @endif
+        @if (! is_null($value)) value="{{ $value }}" @endif
+        @if (! is_null($min)) min="{{ $min }}" @endif
+        @if (! is_null($max)) max="{{ $max }}" @endif
+        @if (! is_null($step)) step="{{ $step }}" @endif
+        @if (! is_null($minlength)) minlength="{{ $minlength }}" @endif
+        @if (! is_null($maxlength)) maxlength="{{ $maxlength }}" @endif
+        @required($required)
+        @disabled($disabled)
+        @readonly($readonly)
+        {{ $attributes->class($classes) }}
+    >
+@else
+    <{{ $as }} {{ $attributes->class($classes) }}>
+        {{ $slot }}
+    </{{ $as }}>
+@endif

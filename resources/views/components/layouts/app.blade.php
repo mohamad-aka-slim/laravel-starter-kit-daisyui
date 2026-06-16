@@ -27,24 +27,41 @@
         @endif
     </head>
     <body class="min-h-screen bg-base-200 text-base-content antialiased">
-        <div class="min-h-screen">
-            <header class="border-b border-base-300 bg-base-100">
-                <div class="mx-auto flex min-h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-                    <a href="{{ url('/') }}" class="flex min-w-0 items-center gap-3">
-                        <span class="grid size-10 shrink-0 place-items-center rounded-lg bg-primary text-primary-content font-bold">L</span>
-                        <span class="min-w-0">
-                            <span class="block truncate text-sm font-semibold">{{ config('starter.name') }}</span>
-                            <span class="block truncate text-xs text-base-content/60">Blade, Tailwind CSS 4, DaisyUI</span>
-                        </span>
-                    </a>
+        <div class="drawer lg:drawer-open">
+            <input id="app-sidebar" type="checkbox" class="drawer-toggle">
 
-                    <x-ui.theme-controller />
-                </div>
-            </header>
+            <div class="drawer-content flex min-h-screen flex-col">
+                <header class="sticky top-0 z-30 border-b border-base-300 bg-base-100/95 backdrop-blur">
+                    <div class="flex min-h-16 items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+                        <div class="flex min-w-0 items-center gap-3">
+                            <label for="app-sidebar" class="btn btn-square btn-ghost relative lg:hidden" aria-label="Open navigation">
+                                <span class="block h-0.5 w-5 rounded bg-current"></span>
+                                <span class="absolute block h-0.5 w-5 -translate-y-1.5 rounded bg-current"></span>
+                                <span class="absolute block h-0.5 w-5 translate-y-1.5 rounded bg-current"></span>
+                            </label>
 
-            <main>
-                {{ $slot }}
-            </main>
+                            <a href="{{ url('/') }}" class="min-w-0">
+                                <span class="block truncate text-sm font-semibold">{{ $title }}</span>
+                                <span class="block truncate text-xs text-base-content/60">Laravel, Blade, Tailwind CSS 4, daisyUI</span>
+                            </a>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <a href="{{ url('/playground') }}" class="btn btn-sm btn-ghost hidden sm:inline-flex">Playground</a>
+                            <x-ui.theme-controller />
+                        </div>
+                    </div>
+                </header>
+
+                <main class="flex-1">
+                    {{ $slot }}
+                </main>
+            </div>
+
+            <div class="drawer-side z-40">
+                <label for="app-sidebar" aria-label="Close navigation" class="drawer-overlay"></label>
+                <x-layouts.sidebar />
+            </div>
         </div>
     </body>
 </html>

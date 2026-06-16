@@ -1,69 +1,90 @@
 <x-layouts.app title="Component Playground">
     @php
-        $groups = [
-            'Foundations' => [
-                ['slug' => 'buttons', 'description' => 'Actions, links, loading states, shapes, and sizes.'],
-                ['slug' => 'badges', 'description' => 'Short labels for status, metadata, and categories.'],
-                ['slug' => 'alerts', 'description' => 'Status messages with colors, layout modes, and icons.'],
-                ['slug' => 'cards', 'description' => 'Compound content containers with figures, bodies, titles, and actions.'],
-            ],
-            'Forms' => [
-                ['slug' => 'inputs', 'description' => 'Text fields, wrapper labels, validation colors, and states.'],
-                ['slug' => 'textareas', 'description' => 'Multiline text controls with sizes and semantic colors.'],
-                ['slug' => 'selects', 'description' => 'Select menus with placeholder, multiple, and selected states.'],
-                ['slug' => 'checkboxes', 'description' => 'Boolean inputs with color, size, checked, and disabled states.'],
-                ['slug' => 'toggles', 'description' => 'Switch controls for binary settings.'],
-                ['slug' => 'radios', 'description' => 'Single-choice inputs grouped by name.'],
-                ['slug' => 'ranges', 'description' => 'Range sliders with values, steps, sizes, and colors.'],
-                ['slug' => 'file-inputs', 'description' => 'File upload controls with accept and multiple options.'],
-                ['slug' => 'fieldsets', 'description' => 'Form grouping with legends, labels, and hints.'],
-            ],
-            'Navigation' => [
-                ['slug' => 'dropdowns', 'description' => 'Trigger and content menus with side and alignment modifiers.'],
-                ['slug' => 'navbars', 'description' => 'Start, center, and end navigation regions.'],
-                ['slug' => 'tabs', 'description' => 'Tabbed navigation with box, border, and lift styles.'],
-                ['slug' => 'breadcrumbs', 'description' => 'Hierarchical page location links.'],
-                ['slug' => 'menus', 'description' => 'Vertical and horizontal menu lists.'],
-                ['slug' => 'paginations', 'description' => 'Join-based page navigation controls.'],
-            ],
-            'Feedback' => [
-                ['slug' => 'modals', 'description' => 'Dialog and checkbox controlled overlays.'],
-                ['slug' => 'toasts', 'description' => 'Positioned alert stacks for transient feedback.'],
-                ['slug' => 'tooltips', 'description' => 'Context hints with positions, colors, and open state.'],
-                ['slug' => 'loadings', 'description' => 'Loading indicators and animation styles.'],
-                ['slug' => 'progresses', 'description' => 'Progress bars with semantic variants.'],
-                ['slug' => 'skeletons', 'description' => 'Loading placeholders for cards and lists.'],
-            ],
-            'Data Display' => [
-                ['slug' => 'tables', 'description' => 'Responsive tables with zebra and pinned row/column modifiers.'],
-                ['slug' => 'avatars', 'description' => 'Images, placeholders, and online/offline status indicators.'],
-            ],
-        ];
+        $groups = config('daisyui.groups');
+        $total = collect($groups)->flatten(1)->count();
+        $generated = count(config('daisyui.components'));
+        $handwritten = $total - $generated;
     @endphp
 
     <section class="mx-auto w-full max-w-7xl space-y-8 px-4 py-6 sm:px-6 lg:px-8">
-        <x-playground.header
-            title="Component Playground"
-            name="DaisyUI Blade Kit"
-            description="A documentation-style gallery for every Blade component in this starter. Each page should show what the component does, the props it accepts, examples, and the Blade code you would copy into an app."
-        />
+        <div class="rounded-lg border border-base-300 bg-base-100 p-6 shadow-sm">
+            <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+                <div class="max-w-3xl">
+                    <span class="badge badge-primary badge-soft">DaisyUI Blade Kit</span>
+                    <h1 class="mt-3 text-3xl font-bold tracking-normal">Component Playground</h1>
+                    <p class="mt-3 text-base text-base-content/70">
+                        Browse every daisyUI component included in this starter. Each page documents props, examples, raw daisyUI markup, and the Blade wrapper usage.
+                    </p>
+                </div>
 
-        <div class="grid gap-6 lg:grid-cols-2">
+                <div class="stats stats-vertical border border-base-300 bg-base-200 shadow-sm sm:stats-horizontal">
+                    <div class="stat px-5 py-4">
+                        <div class="stat-title">Components</div>
+                        <div class="stat-value text-primary">{{ $total }}</div>
+                    </div>
+                    <div class="stat px-5 py-4">
+                        <div class="stat-title">Generated docs</div>
+                        <div class="stat-value text-secondary">{{ $generated }}</div>
+                    </div>
+                    <div class="stat px-5 py-4">
+                        <div class="stat-title">Handwritten docs</div>
+                        <div class="stat-value text-accent">{{ $handwritten }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 flex flex-wrap gap-2">
+                @foreach ($groups as $group => $items)
+                    <a href="#{{ str($group)->slug() }}" class="btn btn-sm btn-outline">
+                        {{ $group }}
+                        <span class="badge badge-sm">{{ count($items) }}</span>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="grid gap-6">
             @foreach ($groups as $group => $items)
-                <x-ui.card border>
-                    <x-ui.card.body>
-                        <x-ui.card.title>{{ $group }}</x-ui.card.title>
-
-                        <div class="mt-2 grid gap-3">
-                            @foreach ($items as $item)
-                                <a href="{{ url("/playground/{$item['slug']}") }}" class="group rounded-lg border border-base-300 p-3 transition-colors hover:bg-base-200">
-                                    <span class="font-medium group-hover:underline">{{ str($item['slug'])->replace('-', ' ')->headline() }}</span>
-                                    <span class="mt-1 block text-sm text-base-content/70">{{ $item['description'] }}</span>
-                                </a>
-                            @endforeach
+                <section id="{{ str($group)->slug() }}" class="scroll-mt-6 rounded-lg border border-base-300 bg-base-100 shadow-sm">
+                    <div class="flex flex-wrap items-center justify-between gap-3 border-b border-base-300 px-5 py-4">
+                        <div>
+                            <h2 class="text-lg font-semibold">{{ $group }}</h2>
+                            <p class="text-sm text-base-content/60">{{ count($items) }} components</p>
                         </div>
-                    </x-ui.card.body>
-                </x-ui.card>
+
+                        <span class="badge badge-neutral badge-outline">{{ $loop->iteration }}/{{ count($groups) }}</span>
+                    </div>
+
+                    <div class="grid gap-3 p-5 sm:grid-cols-2 xl:grid-cols-3">
+                        @foreach ($items as $item)
+                            @php
+                                $componentMeta = config("daisyui.components.{$item['slug']}");
+                                $isGenerated = (bool) $componentMeta;
+                                $componentName = $componentMeta['name'] ?? 'x-ui.' . str($item['slug'])->singular();
+                            @endphp
+
+                            <a
+                                href="{{ url("/playground/{$item['slug']}") }}"
+                                class="group flex h-full flex-col justify-between rounded-lg border border-base-300 bg-base-100 p-4 transition hover:border-primary/50 hover:bg-base-200"
+                            >
+                                <span>
+                                    <span class="flex items-start justify-between gap-3">
+                                        <span class="font-semibold group-hover:underline">{{ str($item['slug'])->replace('-', ' ')->headline() }}</span>
+                                        <span @class(['badge badge-sm', 'badge-primary badge-soft' => $isGenerated, 'badge-accent badge-soft' => ! $isGenerated])>
+                                            {{ $isGenerated ? 'generated' : 'custom' }}
+                                        </span>
+                                    </span>
+                                    <span class="mt-2 block text-sm leading-6 text-base-content/70">{{ $item['description'] }}</span>
+                                </span>
+
+                                <span class="mt-4 flex items-center justify-between text-xs text-base-content/50">
+                                    <code>{{ $componentName }}</code>
+                                    <span>Open</span>
+                                </span>
+                            </a>
+                        @endforeach
+                    </div>
+                </section>
             @endforeach
         </div>
     </section>

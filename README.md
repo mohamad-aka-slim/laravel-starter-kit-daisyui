@@ -1,34 +1,69 @@
-# laravel-starter-kit-daisyui
+# Laravel DaisyUI Starter Kit
 
-A Blade-first Laravel starter for building application interfaces with Tailwind CSS 4 and DaisyUI.
+A Blade-first Laravel starter for building application interfaces with Tailwind CSS 4 and daisyUI 5.
 
-This repository is intentionally a starter first. Once the component names, config shape, and theme behavior prove useful, the next step is a Composer package. An installer command should come later, after the defaults are stable enough to automate.
+This repository includes a full daisyUI component playground, Blade wrappers for the daisyUI component set, theme switching, and documentation-style examples that are ready to browse locally or share in a GitHub pull request.
 
-## Stack
+## What Is Included
 
-- Laravel application scaffold
-- Blade-first UI components
-- Tailwind CSS 4 CSS entry
-- DaisyUI plugin configured in `resources/css/app.css`
-- DaisyUI theme switching through `data-theme` and `theme-controller`
-- Local theme persistence through `localStorage`
+- Laravel application scaffold with Blade views.
+- Tailwind CSS 4 and daisyUI configured in `resources/css/app.css`.
+- Theme switching with daisyUI `theme-controller`, `data-theme`, and local browser persistence.
+- Blade UI components under `resources/views/components/ui`.
+- A `/playground` catalog covering all 65 daisyUI components.
+- Generated documentation pages for the cloned daisyUI components.
+- Handwritten playground pages for the starter's original components.
+- Feature tests that verify the starter surface and all playground routes.
 
-## Starter Structure
+## Component Playground
 
-- `config/starter.php` contains the starter name, default theme, and enabled DaisyUI theme list.
-- `resources/views/components/layouts/app.blade.php` provides the base app shell.
-- `resources/views/components/ui/theme-controller.blade.php` renders the DaisyUI theme controller.
-- `resources/views/components/ui/panel.blade.php` and `resources/views/components/ui/stat.blade.php` are small starter components used by the welcome screen.
-- `resources/js/app.js` applies, persists, and syncs the selected theme.
-- `resources/css/app.css` imports Tailwind CSS 4 and registers DaisyUI with the known theme list.
+Open the playground at:
 
-## Development
+```text
+/playground
+```
 
-Install dependencies:
+The playground index groups components by the same families used by daisyUI:
+
+- Actions
+- Data Display
+- Navigation
+- Feedback
+- Data Input
+- Layout
+- Mockup
+
+Each generated playground page includes:
+
+- live examples,
+- raw daisyUI markup,
+- Blade wrapper usage,
+- prop documentation,
+- a link back to the official daisyUI docs.
+
+## Key Files
+
+- `config/starter.php` controls the starter name, default theme, and enabled daisyUI themes.
+- `config/daisyui.php` defines the 65-component playground catalog, component metadata, props, and generated examples.
+- `resources/views/playground/index.blade.php` renders the component catalog.
+- `resources/views/playground/generated.blade.php` renders generated documentation pages.
+- `resources/views/components/ui` contains the Blade component wrappers.
+- `resources/js/app.js` applies, persists, and syncs selected themes.
+
+## Installation
+
+Install PHP and Node dependencies:
 
 ```bash
 composer install
 npm install
+```
+
+Copy the environment file if needed:
+
+```bash
+cp .env.example .env
+php artisan key:generate
 ```
 
 Run the app:
@@ -51,20 +86,41 @@ php artisan test
 
 ## Theme Configuration
 
-The starter defaults to the `light` DaisyUI theme and enables the standard DaisyUI theme set from `config/starter.php`.
+The starter defaults to the `light` daisyUI theme.
 
-You can override the default theme with:
+Set another default theme with:
 
 ```env
 STARTER_DEFAULT_THEME=dark
 ```
 
-The selected browser theme is stored under `starter-theme` in `localStorage`. User profile persistence can be added later without changing the component API.
+The selected browser theme is stored under `starter-theme` in `localStorage`. Server-side user theme persistence can be added later without changing the component API.
+
+## Pull Request Summary
+
+Suggested GitHub PR title:
+
+```text
+Add full daisyUI Blade component playground
+```
+
+Suggested PR body:
+
+```markdown
+## Summary
+- add Blade wrappers for the remaining daisyUI components
+- add a 65-component playground catalog grouped by daisyUI category
+- add generated documentation pages with examples, props, and usage snippets
+- add route coverage tests for every playground page
+
+## Verification
+- php artisan test
+- npm run build
+```
 
 ## Roadmap
 
-1. Stabilize the starter repository through real app screens and component usage.
-2. Extract the reusable structure into a Composer package once naming and config settle.
-3. Add an optional installer command after the choices are stable.
-
-Optional adapters for Livewire or Inertia can be added after the Blade-first layer is useful on its own.
+1. Stabilize the Blade component APIs through real application screens.
+2. Add more handwritten examples for high-use components where custom guidance is useful.
+3. Extract the reusable structure into a Composer package after naming and config settle.
+4. Add an installer command once the defaults are stable enough to automate.

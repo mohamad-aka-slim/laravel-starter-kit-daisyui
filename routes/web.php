@@ -13,7 +13,17 @@ Route::get('/playground', function () {
 Route::get('/playground/{s}', function (string $s) {
     abort_unless(preg_match('/^[a-z0-9-]+$/', $s), 404);
 
-    return view()->exists("playground.{$s}")
-        ? view("playground.{$s}")
+    if (view()->exists("playground.{$s}")) {
+        return view("playground.{$s}");
+    }
+
+    $component = config("daisyui.components.{$s}");
+
+    if ($component && $examples = config("daisyui.example_sets.{$s}")) {
+        $component['examples'] = $examples;
+    }
+
+    return $component
+        ? view('playground.generated', ['meta' => $component])
         : abort(404);
 });

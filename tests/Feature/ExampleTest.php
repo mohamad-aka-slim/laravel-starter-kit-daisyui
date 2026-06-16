@@ -221,6 +221,21 @@ class ExampleTest extends TestCase
             ->assertSee('/playground/skeletons', false);
     }
 
+    public function test_all_documented_playground_pages_render(): void
+    {
+        $pages = collect(config('daisyui.groups'))
+            ->flatten(1)
+            ->pluck('slug');
+
+        $this->assertCount(65, $pages);
+
+        foreach ($pages as $slug) {
+            $this->get("/playground/{$slug}")
+                ->assertStatus(200)
+                ->assertSee('Playground');
+        }
+    }
+
     public function test_extended_component_playgrounds_render(): void
     {
         $pages = [

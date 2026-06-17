@@ -1,6 +1,9 @@
 {
     "$schema": "https://www.schemastore.org/package.json",
+    "name": "laravel-starter-kit-daisyui",
+    "description": "A Blade-first Laravel starter kit with Tailwind CSS 4, daisyUI 5, theme switching, and a component playground.",
     "private": true,
+    "license": "MIT",
     "type": "module",
     "scripts": {
         "build": "vite build",

@@ -262,4 +262,13 @@ class ExampleTest extends TestCase
             }
         }
     }
+
+    public function test_daisyui_catalog_routes_render(): void
+    {
+        foreach (array_keys(config('daisyui.components')) as $slug) {
+            $this->get("/playground/{$slug}")
+                ->assertStatus(200)
+                ->assertSee(config("daisyui.components.{$slug}.title"));
+        }
+    }
 }

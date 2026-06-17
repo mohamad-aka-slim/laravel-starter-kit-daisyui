@@ -4,6 +4,8 @@ A Blade-first Laravel starter for building application interfaces with Tailwind 
 
 This repository includes a full daisyUI component playground, Blade wrappers for the daisyUI component set, theme switching, and documentation-style examples that are ready to browse locally or share in a GitHub pull request.
 
+> Status: `0.1.0` starter preview. This is intended to be cloned or used as a Laravel starter repository first. Composer package extraction should come after the component API has been tested in real apps.
+
 ## What Is Included
 
 - Laravel application scaffold with Blade views.
@@ -84,6 +86,27 @@ Run tests:
 php artisan test
 ```
 
+## Use As A Starter
+
+Clone the repository into a new application directory:
+
+```bash
+git clone https://github.com/mohamad-aka-slim/laravel-starter-kit-daisyui.git my-app
+cd my-app
+composer install
+npm install
+cp .env.example .env
+php artisan key:generate
+npm run build
+php artisan serve
+```
+
+Open:
+
+```text
+http://127.0.0.1:8000/playground
+```
+
 ## Theme Configuration
 
 The starter defaults to the `light` daisyUI theme.
@@ -124,3 +147,11 @@ Suggested PR body:
 2. Add more handwritten examples for high-use components where custom guidance is useful.
 3. Extract the reusable structure into a Composer package after naming and config settle.
 4. Add an installer command once the defaults are stable enough to automate.
+
+## Project Files
+
+- `CHANGELOG.md` tracks release notes.
+- `CONTRIBUTING.md` explains local development and component rules.
+- `SECURITY.md` explains vulnerability reporting.
+- `docs/COMPONENTS.md` documents component design principles.
+- `docs/RELEASE_CHECKLIST.md` lists release steps.
